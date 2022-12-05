@@ -26,7 +26,7 @@ public class ManagerTest {
     }
 
     @Test
-    public void testSearchBookBy() {
+    public void testSearchBookByFindFew() {
         Repository repo = new Repository();
         Manager manager = new Manager(repo);
         Book book1 = new Book(12, "Война и мир", 500, "Л.Толстой");
@@ -44,6 +44,43 @@ public class ManagerTest {
 
     }
 
+    @Test
+    public void testSearchBookByFindOne() {
+        Repository repo = new Repository();
+        Manager manager = new Manager(repo);
+        Book book1 = new Book(12, "Война и мир", 500, "Л.Толстой");
+        Book book2 = new Book(17, "Анна Каренина", 370, "Л.Толстой");
+        Book book3 = new Book(5, "Воскресение", 330, "Л.Толстой");
+
+        manager.add(book1);
+        manager.add(book2);
+        manager.add(book3);
+
+        Product[] expected = {book1};
+        Product[] actual = manager.searchBy("мир");
+
+        Assertions.assertArrayEquals(expected, actual);
+
+    }
+
+    @Test
+    public void testSearchBookByFindNone() {
+        Repository repo = new Repository();
+        Manager manager = new Manager(repo);
+        Book book1 = new Book(12, "Война и мир", 500, "Л.Толстой");
+        Book book2 = new Book(17, "Анна Каренина", 370, "Л.Толстой");
+        Book book3 = new Book(5, "Воскресение", 330, "Л.Толстой");
+
+        manager.add(book1);
+        manager.add(book2);
+        manager.add(book3);
+
+        Product[] expected = {};
+        Product[] actual = manager.searchBy("декабр");
+
+        Assertions.assertArrayEquals(expected, actual);
+
+    }
 
 
     @Test
@@ -64,8 +101,9 @@ public class ManagerTest {
         Assertions.assertArrayEquals(expected, actual);
 
     }
+
     @Test
-    public void testSearchSmartphoneBy() {
+    public void testSearchSmartphoneByFindFew() {
         Repository repo = new Repository();
         Manager manager = new Manager(repo);
         Smartphone smartphone1 = new Smartphone(1, "Iphone 12", 10000, "Apple");
@@ -82,4 +120,43 @@ public class ManagerTest {
         Assertions.assertArrayEquals(expected, actual);
 
     }
+
+    @Test
+    public void testSearchSmartphoneByFindOne() {
+        Repository repo = new Repository();
+        Manager manager = new Manager(repo);
+        Smartphone smartphone1 = new Smartphone(1, "Iphone 12", 10000, "Apple");
+        Smartphone smartphone2 = new Smartphone(15, "Iphone 13", 30000, "Apple");
+        Smartphone smartphone3 = new Smartphone(12, "Mi15", 50000, "Xiaomi");
+
+        manager.add(smartphone1);
+        manager.add(smartphone2);
+        manager.add(smartphone3);
+
+        Product[] expected = {smartphone3};
+        Product[] actual = manager.searchBy("Mi15");
+
+        Assertions.assertArrayEquals(expected, actual);
+
+    }
+
+    @Test
+    public void testSearchSmartphoneByFindNone() {
+        Repository repo = new Repository();
+        Manager manager = new Manager(repo);
+        Smartphone smartphone1 = new Smartphone(1, "Iphone 12", 10000, "Apple");
+        Smartphone smartphone2 = new Smartphone(15, "Iphone 13", 30000, "Apple");
+        Smartphone smartphone3 = new Smartphone(12, "Mi15", 50000, "Xiaomi");
+
+        manager.add(smartphone1);
+        manager.add(smartphone2);
+        manager.add(smartphone3);
+
+        Product[] expected = {};
+        Product[] actual = manager.searchBy("Samsung");
+
+        Assertions.assertArrayEquals(expected, actual);
+
+    }
+
 }
